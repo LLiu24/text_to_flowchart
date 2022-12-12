@@ -29,7 +29,9 @@ sns.set()
 # ### Identify verb especially decision related verb
 
 
-def text_to_flowchart(text_title,text):
+def text_to_flowchart(example):
+    text_title = list(example.keys())[0]
+    text = example[text_title]
     text = re.sub(r'\n|\r',' ',text)
     text = re.sub(r'\s{2}',' ',text)
     text = re.sub(r'\d','',text)
@@ -97,7 +99,10 @@ def text_to_flowchart(text_title,text):
 
 
     extraction_df = pd.DataFrame(extraction_ls)
-
+    
+    # save extraction_df to csv
+    extraction_df.to_csv(text_title+'.csv',index = False)
+    
         # ### Create relationship for actions
 
     source = [d for d in extraction_df['entity_lemma_text']]
